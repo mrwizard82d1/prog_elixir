@@ -8,7 +8,9 @@ defmodule Issues.CLI do
   """
 
   def run(argv) do
-    parse_args(argv)
+    argv
+      |> parse_args
+      |> dispatch
   end
 
   @doc """
@@ -33,6 +35,17 @@ defmodule Issues.CLI do
         # Any other parse result
         -> :help
     end
+  end
+
+  def dispatch(:help) do
+    IO.puts """
+      usage: issues <user> <project> [count | #{@default_count}]
+    """
+    System.halt(0)
+  end
+
+  def dispatch({user, project, _count}) do
+    Issues.GithubIssues.fetch(user, project)
   end
 
 end
