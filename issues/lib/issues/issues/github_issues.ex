@@ -4,6 +4,7 @@ defmodule Issues.GithubIssues do
   def fetch(user, project) do
     issues_url(user, project)
     |> HTTPoison.get(@user_agent)
+    # |> HTTPoison.get()
     |> handle_response
   end
 
@@ -11,6 +12,10 @@ defmodule Issues.GithubIssues do
     "https://api.github.com/repos/#{user}/#{project}/issues"
   end
 
-  def handle_response({:ok, %HTTPoison.Response{status_code: 200, body: body}}), do: {:ok, body}
-  def handle_response({:error, reason}), do: {:error, reason}
+  def handle_response({:ok, %HTTPoison.Response{status_code: 200, body: body}}) do
+    {:ok, :jsx.decode(body)}
+  end
+  def handle_response({:error, reason}) do
+    {:error, :jsx.decode(reason)}
+  end
 end
