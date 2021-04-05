@@ -57,8 +57,8 @@ defmodule Issues.CLI do
   end
 
   # I think this function goes here
-  def convert_to_list_of_hashdicts(list) do
-     Enum.map(&Enum.into(&1, HashDict.new, list))
+  def convert_to_list_of_maps(list) do
+     Enum.map(&Enum.into(&1, Map.new), list)
   end
 
 end
