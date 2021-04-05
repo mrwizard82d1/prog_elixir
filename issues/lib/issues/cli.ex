@@ -56,4 +56,9 @@ defmodule Issues.CLI do
     System.halt(2)
   end
 
+  # I think this function goes here
+  def convert_to_list_of_hashdicts(list) do
+     Enum.map(&Enum.into(&1, HashDict.new, list))
+  end
+
 end
