@@ -44,12 +44,13 @@ defmodule Issues.CLI do
     System.halt(0)
   end
 
-  def dispatch({user, project, _count}) do
+  def dispatch({user, project, count}) do
     Issues.GithubIssues.fetch(user, project)
     |> decode_response
     # The function, `decode_response`, returns a list of maps already (latest version?)
     # |> convert_to_list_of_maps
     |> sort_into_ascending_order
+    |> Enum.take(count)
   end
 
   def decode_response({:ok, body}), do: body
