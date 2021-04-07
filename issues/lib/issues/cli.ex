@@ -46,7 +46,10 @@ defmodule Issues.CLI do
 
   def dispatch({user, project, _count}) do
     Issues.GithubIssues.fetch(user, project)
-      |> decode_response
+    |> decode_response
+    # The function, `decode_response`, returns a list of maps already (latest version?)
+    # |> convert_to_list_of_maps
+    |> sort_into_ascending_order
   end
 
   def decode_response({:ok, body}), do: body
@@ -56,9 +59,12 @@ defmodule Issues.CLI do
     System.halt(2)
   end
 
-  # I think this function goes here
   def convert_to_list_of_maps(list) do
-     Enum.map(&Enum.into(&1, Map.new), list)
+     Enum.map(list, &Enum.into(&1, Map.new))
+  end
+
+  def sort_into_ascending_order(list_of_issues) do
+    Enum.sort list_of_issues, fn left, right -> left["created_at"] <= right["created_at"] end
   end
 
 end
