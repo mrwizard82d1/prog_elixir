@@ -37,7 +37,11 @@ defmodule Issues.TableFormatter do
     |> Enum.each(&puts_one_line_in_columns(&1, format))
   end
 
+  defp format_field("number"), do: "#"
+  defp format_field(field), do: field
+
   def puts_one_line_in_columns(fields, format) do
-    :io.format(format, fields)
+    formatted_fields = Enum.map(fields, &format_field/1)
+    :io.format(format, formatted_fields)
   end
 end
