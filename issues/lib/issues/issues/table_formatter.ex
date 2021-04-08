@@ -11,4 +11,9 @@ defmodule Issues.TableFormatter do
   def widths_of(columns) do
     for column <- columns, do: column |> Enum.map(&String.length/1) |> Enum.max
   end
+
+  def format_for(column_widths) do
+    Enum.map_join(column_widths, " | ", fn width -> "~-#{width}s" end) <> "~n"
+  end
+
 end

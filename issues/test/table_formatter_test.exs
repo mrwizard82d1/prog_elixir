@@ -28,4 +28,8 @@ defmodule TableFormatterTest do
     assert widths == [5, 6, 7]
   end
 
+  test "correct format string returned" do
+    assert Itf.format_for([9, 10, 11]) == "~-9s | ~-10s | ~-11s~n"
+  end
+
 end
