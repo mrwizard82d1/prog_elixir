@@ -23,4 +23,9 @@ defmodule TableFormatterTest do
     assert List.first(columns) == ["r1 c1", "r2 c1", "r3 c1", "r4 c1"]
   end
 
+  test "column_widths" do
+    widths = Itf.widths_of(split_with_three_columns())
+    assert widths == [5, 6, 7]
+  end
+
 end
