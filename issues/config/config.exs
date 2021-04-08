@@ -1,7 +1,3 @@
-defmodule Config do
-  @moduledoc false
+import Config
 
-  import Config
-
-  config :issues, github_url: "https://api.github.com"
-end
+config :issues, github_url: "https://api.github.com"
