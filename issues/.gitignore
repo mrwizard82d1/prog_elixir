@@ -1,3 +1,6 @@
+# Ignore the generated executable
+issues
+
 # The directory Mix will write compiled artifacts to.
 /_build/
 
@@ -21,7 +24,6 @@ erl_crash.dump
 
 # Ignore package tarball (built via "mix hex.build").
 issues-*.tar
-
 
 # Temporary files for e.g. tests
 /tmp
