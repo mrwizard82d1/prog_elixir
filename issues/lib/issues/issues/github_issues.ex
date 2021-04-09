@@ -1,7 +1,10 @@
 defmodule Issues.GithubIssues do
+  require Logger  # enable macros from logger module
+
   @user_agent [{"User-agent", "Elixir mrwizard82d1@gmail.com"}]
 
   def fetch(user, project) do
+    Logger.info "Fetching user #{user}'s project #{project}"
     issues_url(user, project)
     |> HTTPoison.get(@user_agent)
     |> handle_response
@@ -14,7 +17,12 @@ defmodule Issues.GithubIssues do
   end
 
   def handle_response({:ok, %HTTPoison.Response{status_code: 200, body: body}}) do
+    Logger.info "Successful response"
+    Logger.debug fn -> IO.inspect(body) end
     {:ok, :jsx.decode(body)}
   end
-  def handle_response({:error, reason}), do: {:error, reason}
+  def handle_response({:error, reason}) do
+    Logger.error "Error #{reason}"
+    {:error, reason}
+  end
 end
