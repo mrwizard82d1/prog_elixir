@@ -15,3 +15,5 @@ defmodule Link1 do
     end
   end
 end
+
+Link1.run
